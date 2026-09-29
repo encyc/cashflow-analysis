@@ -1,0 +1,18 @@
+collector/inbox/
+collector/outbox/
+collector/.env
+collector/.venv/
+.DS_Store
+__pycache__/
+
+# Private statements, generated reports, and local-only work products
+/template/
+/outputs/
+/tmp/
+/docs/archive/
+/.venv/
+.env
+.env.*
+!.env.example
+*.pyc
+.pytest_cache/
