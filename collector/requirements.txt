@@ -1,0 +1,4 @@
+fastapi
+uvicorn[standard]
+python-multipart
+httpx  # 仅测试用（fastapi.testclient.TestClient 依赖）

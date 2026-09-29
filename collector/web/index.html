@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<title>流水资料提交</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="page">
+  <header class="header">
+    <div class="logo">¥</div>
+    <h1>流水资料提交</h1>
+    <p class="subtitle">【机构名称】· 客户资料收集通道</p>
+  </header>
+
+  <ol class="steps" id="stepBar">
+    <li data-step="1">授权</li>
+    <li data-step="2">选平台</li>
+    <li data-step="3">导出</li>
+    <li data-step="4">上传</li>
+  </ol>
+
+  <main>
+    <!-- 第 1 步：首页与授权 -->
+    <section id="view-home" class="view">
+      <div class="card">
+        <h2>提交说明</h2>
+        <ul class="plain-list">
+          <li>按页面引导，在<b>微信 / 支付宝中自行操作</b>导出交易流水证明；</li>
+          <li>回到本页上传导出的文件，并填写收到的<b>解压密码</b>；</li>
+          <li>全程约 3 分钟，资料仅用于为您办理业务。</li>
+        </ul>
+        <label class="consent">
+          <input type="checkbox" id="consentCheck">
+          <span>我已阅读并同意<a href="consent.html" target="_blank">《个人信息授权协议》</a>，同意为办理业务之目的提供上述资料。</span>
+        </label>
+        <button class="btn primary block" id="btnStart" disabled>开始</button>
+      </div>
+    </section>
+
+    <!-- 第 2 步：选择平台 -->
+    <section id="view-platform" class="view hidden">
+      <div class="card">
+        <h2>选择流水平台</h2>
+        <div class="platform-grid">
+          <button type="button" class="platform" data-platform="wechat">
+            <span class="p-icon wechat">微</span>
+            <span class="p-name">微信</span>
+            <span class="p-desc">微信支付账单</span>
+          </button>
+          <button type="button" class="platform" data-platform="alipay">
+            <span class="p-icon alipay">支</span>
+            <span class="p-name">支付宝</span>
+            <span class="p-desc">交易流水证明</span>
+          </button>
+        </div>
+        <p class="hint">如微信和支付宝的流水都需要提交，提交完一份后可返回再交一份。</p>
+      </div>
+    </section>
+
+    <!-- 第 3 步：导出引导 -->
+    <section id="view-guide" class="view hidden">
+      <div class="card">
+        <h2 id="guideTitle"></h2>
+        <ol class="guide-steps" id="guideSteps"></ol>
+        <div class="tips">
+          <p><b>小提示：</b>iPhone 需先在邮箱 App 中把附件「存储到文件」，再回到本页选择上传；安卓手机可直接从文件管理器选择。</p>
+        </div>
+        <button type="button" class="btn primary block" id="btnToUpload">我已导出，去上传</button>
+        <button type="button" class="btn link block" id="btnBackPlatform">返回重选平台</button>
+      </div>
+    </section>
+
+    <!-- 第 4 步：上传提交 -->
+    <section id="view-upload" class="view hidden">
+      <form id="uploadForm" class="card" novalidate>
+        <div id="formError" class="form-error hidden"></div>
+
+        <label class="file-box" id="fileBox">
+          <input type="file" id="fileInput" accept=".zip,.pdf,.xlsx,.xls" hidden>
+          <span class="file-icon">📄</span>
+          <span class="file-text" id="fileText">点击选择流水文件<br><small>支持 zip / pdf / xlsx / xls</small></span>
+        </label>
+
+        <label class="field">
+          <span>解压密码 <i class="req">*</i></span>
+          <span class="pwd-row">
+            <input type="password" id="password" maxlength="64" placeholder="导出时微信 / 支付宝告知的密码" autocomplete="off">
+            <button type="button" class="eye" id="eyeBtn">显示</button>
+          </span>
+        </label>
+
+        <label class="field">
+          <span>姓名 <i class="req">*</i></span>
+          <input type="text" id="name" maxlength="30" placeholder="与流水账户一致的姓名" autocomplete="name">
+        </label>
+
+        <label class="field">
+          <span>手机号 <i class="req">*</i></span>
+          <input type="tel" id="phone" maxlength="11" placeholder="用于核对身份的联系电话" autocomplete="tel">
+        </label>
+
+        <label class="field">
+          <span>业务单号（选填）</span>
+          <input type="text" id="orderNo" maxlength="32" placeholder="如客户经理已告知单号请填写">
+        </label>
+
+        <div class="progress hidden" id="progress"><div class="progress-bar" id="progressBar"></div></div>
+        <p class="progress-text hidden" id="progressText"></p>
+
+        <button type="submit" class="btn primary block" id="btnSubmit">提交</button>
+        <p class="hint center">提交成功后请勿重复提交；文件较大时上传需要一点时间，请耐心等待。</p>
+      </form>
+    </section>
+
+    <!-- 完成 -->
+    <section id="view-done" class="view hidden">
+      <div class="card center">
+        <div class="done-icon">✓</div>
+        <h2>提交成功</h2>
+        <p>我们已收到您的流水资料，请勿重复提交。</p>
+        <p class="submission-id" id="submissionId"></p>
+        <button type="button" class="btn primary block" id="btnAgain">再提交一份（如支付宝流水）</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">如有疑问请联系您的客户经理 ·【联系电话】</footer>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
