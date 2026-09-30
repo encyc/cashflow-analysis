@@ -45,7 +45,11 @@
 | `GET /reports/{report_id}` | 无 | 已发布报告元信息、完整性、版本；无权返回统一 404 |
 | `GET /reports/{report_id}/overview` | `platform,start_date,end_date` | 该范围总览和月度组合图，附实际生效过滤条件 |
 | `GET /reports/{report_id}/scenes` | `platform,start_date,end_date,scene` | 场景/渠道聚合；返回可下钻标识 |
-| `GET /reports/{report_id}/loan-periods` | `platform` | 固定截止日窗口；不接受自定义日期，传入则 422 |
+| `GET /reports/{report_id}/loan-periods` | `platform` | 借还款固定截止日窗口；不接受自定义日期，传入则 422 |
+| `GET /reports/{report_id}/credit-periods` | `platform` | 信用履约独立固定周期，沿用 loan-periods 窗口约定 |
+| `GET /reports/{report_id}/salary` | `platform,start_date,end_date` | 薪资线索月度、来源、关键词依据及下钻 ID |
+| `GET /reports/{report_id}/transaction-highlights` | `platform,start_date,end_date` | 大额和夜间的阈值、笔数、收入、支出及下钻 ID |
+| `GET /reports/{report_id}/fund-flows` | `platform,start_date,end_date` | 两侧各前 5 名及剩余组，返回金额和精确下钻 ID |
 | `GET /reports/{report_id}/profiles` | `platform,start_date,end_date,sort` | 标签及交易画像，明确重叠计数 |
 | `GET /reports/{report_id}/statistics` | `group_by,platform,start_date,end_date` | `group_by=category/party/payment/hour` 的原有模块数据 |
 | `GET /reports/{report_id}/transactions` | 见后文 | 服务端分页、总笔数/收支汇总、`next_cursor` |
